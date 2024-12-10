@@ -1,0 +1,124 @@
+{
+    "info": {
+      "name": "Backend API Collection",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Register",
+            "request": {
+              "method": "POST",
+              "url": "{{base_url}}/auth/register",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\": \"Test User\", \"email\": \"test@example.com\", \"password\": \"password123\"}"
+              }
+            }
+          },
+          {
+            "name": "Login",
+            "request": {
+              "method": "POST",
+              "url": "{{base_url}}/auth/login",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\": \"test@example.com\", \"password\": \"password123\"}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Nutrition",
+        "item": [
+          {
+            "name": "Scan Nutrition",
+            "request": {
+              "method": "POST",
+              "url": "{{base_url}}/nutrition/scan",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\"image\": \"base64_encoded_image_data\"}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Child Data",
+        "item": [
+          {
+            "name": "Add or Update Child",
+            "request": {
+              "method": "POST",
+              "url": "{{base_url}}/child-data/add-or-update",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\": \"Child 1\", \"birthDate\": \"2015-01-01\", \"gender\": \"male\", \"height\": 120, \"weight\": 35}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Progress",
+        "item": [
+          {
+            "name": "Add Progress",
+            "request": {
+              "method": "POST",
+              "url": "{{base_url}}/progress/add",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\"childId\": \"child_uuid\", \"height\": 125, \"weight\": 40}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Profile",
+        "item": [
+          {
+            "name": "Get Profile",
+            "request": {
+              "method": "GET",
+              "url": "{{base_url}}/profile",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

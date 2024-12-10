@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(uuid()) @db.Char(36)
+  name           String          @db.VarChar(100)
+  password       String          @db.VarChar(100)
+  email          String          @unique @db.VarChar(100)
+  created_at     DateTime        @default(now())
+  updated_at     DateTime        @updatedAt
+  nutritionScans NutritionScan[]
+  children       Child[]
+}
+
+model NutritionScan {
+  id         String   @id @default(uuid()) @db.Char(36)
+  userId     String   @db.Char(36)
+  nutrients  Json
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model ChildProgress {
+  id         String   @id @default(uuid()) @db.Char(36)
+  childId    String   @db.Char(36)
+  height     Float
+  weight     Float
+  bmi        String
+  date       DateTime @default(now())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  child      Child    @relation(fields: [childId], references: [id])
+}
+
+model Child {
+  id         String          @id @default(uuid()) @db.Char(36)
+  name       String          @db.VarChar(100)
+  birthDate  DateTime
+  gender     String          @db.VarChar(10)
+  height     Float
+  weight     Float
+  bmi        String
+  userId     String          @db.Char(36)
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+  progress   ChildProgress[]
+  user       User            @relation(fields: [userId], references: [id])
+}
